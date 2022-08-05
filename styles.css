@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.full-height{
+    min-height: 100vh;
+    height: 100%;
+}
+
+.content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(6, 61, 61);
+}
+
+.container{
+    background-color: rgb(26, 180, 129);
+    height: 500px;
+    width: 400px;
+}
