@@ -25,8 +25,7 @@
  
 
  let userValue = ""
- let userValue2 = ""
- let outcome = null
+ let outcome = 0
  let active
 
  buttons.forEach((button => button.addEventListener('click', function () { // listen to all buttons
@@ -43,9 +42,8 @@
     userInput.textContent = ""
     calculation.textContent = ""
     userValue = ""
-    userValue2 = ""
     active = ""
-    outcome = null;
+    outcome = 0;
  })
 
  btnDelete.addEventListener('click', function(){
@@ -82,6 +80,30 @@ btnSubstract.addEventListener('click', function(){
         active = 'Substract'
     }
     
+})
+
+
+
+//MULTIPLY
+btnMultiply.addEventListener('click', function(){ 
+    if (active == null || active == ""){
+        userInput.textContent = "" // clear userInput text
+        outcome += Number(userValue) // add uservalue to outcome
+        console.log(`OUTCOME: ${outcome}`)
+        console.log(`USER VALUE: ${userValue}`)
+        calculation.textContent = `${outcome} *`;
+        userValue = ""
+        active = 'Multiply'
+    } else if (userValue != 0 && userValue != ""){
+        let sum = outcome * userValue
+        outcome = sum;
+        calculation.textContent = `${outcome} *`
+        userInput.textContent = `${outcome}`
+        userValue = ""
+    } else {
+        calculation.textContent = `${outcome} *`
+        return;
+    }
 })
 
 //EQUAL
