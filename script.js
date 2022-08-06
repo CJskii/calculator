@@ -26,16 +26,17 @@
 
  let userValue = ""
  let userValue2 = ""
- let outcome = 0
+ let outcome = null
  let active
 
- buttons.forEach((button => button.addEventListener('click', function () {
-    userInput.textContent += this.textContent
+ buttons.forEach((button => button.addEventListener('click', function () { // listen to all buttons
+    //userInput.textContent += this.textContent
  })))
 
- numberButtons.forEach((button => button.addEventListener('click', function() {
-        userValue += this.textContent;
-        console.log("A: " + userValue)    
+ numberButtons.forEach((button => button.addEventListener('click', function() { // listen to number buttons
+    userValue += this.textContent;
+    userInput.textContent = `${userValue}` // add clicked number value to userValue variable
+    console.log("A: " + userValue)          
  })))
 
  btnClear.addEventListener('click', function(){
@@ -44,7 +45,7 @@
     userValue = ""
     userValue2 = ""
     active = ""
-    outcome = 0;
+    outcome = null;
  })
 
  btnDelete.addEventListener('click', function(){
@@ -54,21 +55,33 @@
  })
 
 //ADD
- btnAdd.addEventListener('click', function(){
-    userInput.textContent = ""
-    outcome += Number(userValue)
-    userValue = ""
+ btnAdd.addEventListener('click', function(){ 
+    userInput.textContent = "" // clear userInput text
+    outcome += Number(userValue) // add uservalue to outcome
+    userValue = "" // clear user value
     calculation.textContent = `${outcome} +`;
+    userInput.textContent = `${outcome}`
     active = 'Add'
 })
 
 //SUBSTRACT
 btnSubstract.addEventListener('click', function(){
-    userInput.textContent = ""
-    outcome -= Number(userValue)
-    userValue = ""
-    calculation.textContent = `${outcome} -`;
-    active = 'Substract'
+    if (active == ""){
+        userInput.textContent = ""
+        outcome += Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} -`;
+        userInput.textContent = `${outcome}`
+        active = 'Substract'
+    } else {
+        userInput.textContent = ""
+        outcome -= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} -`
+        userInput.textContent = `${outcome}`
+        active = 'Substract'
+    }
+    
 })
 
 //EQUAL
@@ -79,12 +92,14 @@ btnEqual.addEventListener('click', function(){
         userValue = ""
         userInput.textContent = ""
         calculation.textContent =`${sum} +`;
+        userInput.textContent = `${outcome}`
     } else if (active == 'Substract'){
         let sum = Number(outcome) - Number(userValue)
         outcome = sum
         userValue = ""
         userInput.textContent = ""
         calculation.textContent =`${sum} -`;
+        userInput.textContent = `${outcome}`
     }
 })
 
