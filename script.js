@@ -62,6 +62,14 @@
     active = 'Add'
 })
 
+//SUBSTRACT
+btnSubstract.addEventListener('click', function(){
+    userInput.textContent = ""
+    outcome -= Number(userValue)
+    userValue = ""
+    calculation.textContent = `${outcome} -`;
+    active = 'Substract'
+})
 
 //EQUAL
 btnEqual.addEventListener('click', function(){
@@ -71,6 +79,12 @@ btnEqual.addEventListener('click', function(){
         userValue = ""
         userInput.textContent = ""
         calculation.textContent =`${sum} +`;
+    } else if (active == 'Substract'){
+        let sum = Number(outcome) - Number(userValue)
+        outcome = sum
+        userValue = ""
+        userInput.textContent = ""
+        calculation.textContent =`${sum} -`;
     }
 })
 
