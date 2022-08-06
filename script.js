@@ -20,17 +20,56 @@
  const btnMultiply = document.querySelector('.btnMultiply')
  const btnDivide = document.querySelector('.btnDivide')
  const btnEqual = document.querySelector('.btnEqual')
+ const numberButtons = document.querySelectorAll('.number')
+ 
+
+ let userValue = ""
+ let userValue2 = ""
+ let outcome = null
+ let active
 
  buttons.forEach((button => button.addEventListener('click', function () {
     userInput.textContent += this.textContent
  })))
 
+ numberButtons.forEach((button => button.addEventListener('click', function() {
+    if(!active){
+        userValue += this.textContent;
+        console.log("A: " + userValue)
+    } else if (active == 'Add') {
+        userValue2 += this.textContent;
+        userValue2.slice(-1, 0);
+        console.log("B: " + userValue2);
+    }
+    
+ })))
+
  btnClear.addEventListener('click', function(){
     userInput.textContent = ""
     calculation.textContent = ""
+    userValue = ""
+    userValue2 = ""
+    active = ""
  })
 
  btnDelete.addEventListener('click', function(){
     let text = userInput.textContent
     userInput.textContent = text.slice(0, -1);
  })
+
+ btnAdd.addEventListener('click', function(){
+    userInput.textContent = ""
+    calculation.textContent = userValue;
+    active = 'Add'
+})
+
+btnEqual.addEventListener('click', function(){
+    if (active == 'Add'){
+        let sum = Number(userValue) + Number(userValue2);
+        userInput.textContent = ""
+        calculation.textContent = sum;
+    }
+
+
+})
+
