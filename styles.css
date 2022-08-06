@@ -17,38 +17,42 @@
 }
 
 .container{
-    background-color: rgb(26, 180, 129);
-    height: 550px;
-    width: 550px;
+    background-color: rgb(11, 58, 43);
+    height: 70%;
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    border-radius: 25px;
+    border: 1px solid black;
 }
 
 .display{
-    width: 95%;
+    width: 93%;
     height: 200px;
     border: 1px solid black;
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-end;
     padding: 10px;
+    border-radius: 25px;
+    font-size: 24px;
 }
 
 .undo{
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
     margin: 10px;
 }
     
@@ -65,8 +69,12 @@
     font-size: 24px;
 }
 
-.clear, .delete{
-    width: 250px;
-    height: 50px
+.btnClear, .btnDelete{
+    width: 275px;
+    height: 75px;
+    border-radius: 15px;
+    background-color: rgba(26, 224, 19, 0.685);
+    color: rgb(245, 245, 245);
+    font-size: 24px;
 }
 
