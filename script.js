@@ -1,5 +1,6 @@
  const container = document.querySelector('.container')
  const display = document.querySelector('.display')
+ const operator = document.querySelector('.active')
  const buttons = document.querySelectorAll('.btn')
  const calculation = document.querySelector('.calculation')
  const userInput = document.querySelector('.user-input')
@@ -25,7 +26,7 @@
 
  let userValue = ""
  let userValue2 = ""
- let outcome = null
+ let outcome = 0
  let active
 
  buttons.forEach((button => button.addEventListener('click', function () {
@@ -33,15 +34,8 @@
  })))
 
  numberButtons.forEach((button => button.addEventListener('click', function() {
-    if(!active){
         userValue += this.textContent;
-        console.log("A: " + userValue)
-    } else if (active == 'Add') {
-        userValue2 += this.textContent;
-        userValue2.slice(-1, 0);
-        console.log("B: " + userValue2);
-    }
-    
+        console.log("A: " + userValue)    
  })))
 
  btnClear.addEventListener('click', function(){
@@ -50,26 +44,33 @@
     userValue = ""
     userValue2 = ""
     active = ""
+    outcome = 0;
  })
 
  btnDelete.addEventListener('click', function(){
     let text = userInput.textContent
     userInput.textContent = text.slice(0, -1);
+    userValue = text.slice(0, -1);
  })
 
+//ADD
  btnAdd.addEventListener('click', function(){
     userInput.textContent = ""
-    calculation.textContent = userValue;
+    outcome += Number(userValue)
+    userValue = ""
+    calculation.textContent = `${outcome} +`;
     active = 'Add'
 })
 
+
+//EQUAL
 btnEqual.addEventListener('click', function(){
     if (active == 'Add'){
-        let sum = Number(userValue) + Number(userValue2);
+        let sum = Number(outcome) + Number(userValue)
+        outcome = sum
+        userValue = ""
         userInput.textContent = ""
-        calculation.textContent = sum;
+        calculation.textContent =`${sum} +`;
     }
-
-
 })
 
