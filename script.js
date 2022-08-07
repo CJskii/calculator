@@ -130,6 +130,13 @@ btnEqual.addEventListener('click', function(){
         userInput.textContent = ""
         calculation.textContent =`${sum} -`
         userInput.textContent = `${outcome}`
+    } else if (active == 'Multiply' && outcome != 0){
+        let sum = Number(outcome) * Number(userValue)
+        outcome = sum
+        userValue = ""
+        userInput.textContent = ""
+        calculation.textContent =`${sum} *`
+        userInput.textContent = `${outcome}`
     } else if (active == 'Multiply'){
         let sum = Number(multiplyNum) * Number(userValue)
         outcome = sum
