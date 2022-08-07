@@ -25,18 +25,23 @@
  
 
  let userValue = ""
+ let userValue2 = ""
  let outcome = 0
  let active
+ let multiplyNum
+
 
  buttons.forEach((button => button.addEventListener('click', function () { // listen to all buttons
     //userInput.textContent += this.textContent
  })))
 
  numberButtons.forEach((button => button.addEventListener('click', function() { // listen to number buttons
-    userValue += this.textContent;
-    userInput.textContent = `${userValue}` // add clicked number value to userValue variable
-    console.log("A: " + userValue)          
+        userValue += this.textContent;
+        userInput.textContent = `${userValue}` // add clicked number value to userValue variable
+        console.log("VALUE1: " + userValue)         
+    
  })))
+
 
  btnClear.addEventListener('click', function(){
     userInput.textContent = ""
@@ -86,23 +91,26 @@ btnSubstract.addEventListener('click', function(){
 
 //MULTIPLY
 btnMultiply.addEventListener('click', function(){ 
-    if (active == null || active == ""){
-        userInput.textContent = "" // clear userInput text
-        outcome += Number(userValue) // add uservalue to outcome
-        console.log(`OUTCOME: ${outcome}`)
-        console.log(`USER VALUE: ${userValue}`)
-        calculation.textContent = `${outcome} *`;
-        userValue = ""
-        active = 'Multiply'
-    } else if (userValue != 0 && userValue != ""){
-        let sum = outcome * userValue
-        outcome = sum;
+    active = 'Multiply'
+    if (userValue == "" ){
         calculation.textContent = `${outcome} *`
-        userInput.textContent = `${outcome}`
+        return
+    } else if (outcome > 0 || outcome < 0){
+        let sum = outcome * userValue;
+        outcome = sum
+        calculation.textContent = `${outcome} *`
+        userInput.textContent = `${outcome}` 
+        userValue = ""
+    } else if (multiplyNum != null && userValue != null){
+        let sum = multiplyNum * userValue;
+        outcome = sum
+        calculation.textContent = `${outcome} *`
+        userInput.textContent = `${outcome}` 
         userValue = ""
     } else {
-        calculation.textContent = `${outcome} *`
-        return;
+        multiplyNum = Number(userValue);
+        userValue = ""
+        calculation.textContent = `${multiplyNum} *`
     }
 })
 
@@ -120,8 +128,17 @@ btnEqual.addEventListener('click', function(){
         outcome = sum
         userValue = ""
         userInput.textContent = ""
-        calculation.textContent =`${sum} -`;
+        calculation.textContent =`${sum} -`
         userInput.textContent = `${outcome}`
+    } else if (active == 'Multiply'){
+        let sum = Number(multiplyNum) * Number(userValue)
+        outcome = sum
+        userValue = ""
+        userInput.textContent = ""
+        calculation.textContent =`${sum} *`
+        userInput.textContent = `${outcome}`
+    } else {
+        return;
     }
 })
 
