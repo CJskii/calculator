@@ -59,24 +59,69 @@
 
 //ADD
  btnAdd.addEventListener('click', function(){ 
-    userInput.textContent = "" // clear userInput text
-    outcome += Number(userValue) // add uservalue to outcome
-    userValue = "" // clear user value
-    calculation.textContent = `${outcome} +`;
-    userInput.textContent = `${outcome}`
-    active = 'Add'
+    if (active == 'Substract'){
+        userInput.textContent = ""
+        outcome -= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} +`
+        userInput.textContent = `${outcome}`
+        active = 'Add'
+    } else if (active == 'Multiply' && userValue != ""){
+        userInput.textContent = ""
+        outcome *= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} +`
+        userInput.textContent = `${outcome}`
+        active = 'Add'
+    } else if (active == 'Divide' && userValue != ""){
+        userInput.textContent = ""
+        outcome /= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} +`
+        userInput.textContent = `${outcome}`
+        active = 'Add'
+    } else {
+        userInput.textContent = "" // clear userInput text
+        outcome += Number(userValue) // add uservalue to outcome
+        userValue = "" // clear user value
+        calculation.textContent = `${outcome} +`;
+        userInput.textContent = `${outcome}`
+        active = 'Add'
+    }
+    
 })
 
 //SUBSTRACT
 btnSubstract.addEventListener('click', function(){
-    if (active == ""){
+    if (active == "" || active == undefined){
         userInput.textContent = ""
         outcome += Number(userValue)
         userValue = ""
         calculation.textContent = `${outcome} -`;
         userInput.textContent = `${outcome}`
         active = 'Substract'
-    } else {
+    } else if (active == 'Add'){
+        userInput.textContent = ""
+        outcome += Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} -`
+        userInput.textContent = `${outcome}`
+        active = 'Substract'
+    } else if (active == 'Multiply' && userValue != ""){
+        userInput.textContent = ""
+        outcome *= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} -`
+        userInput.textContent = `${outcome}`
+        active = 'Substract'
+    } else if (active == 'Divide' && userValue != ""){
+        userInput.textContent = ""
+        outcome /= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} -`
+        userInput.textContent = `${outcome}`
+        active = 'Substract'
+    }  else {
         userInput.textContent = ""
         outcome -= Number(userValue)
         userValue = ""
@@ -87,54 +132,102 @@ btnSubstract.addEventListener('click', function(){
     
 })
 
-
+// 12 + 7 - 5 * 3 = should yield 42
 
 //MULTIPLY
 btnMultiply.addEventListener('click', function(){ 
-    active = 'Multiply'
     if (userValue == "" ){
         calculation.textContent = `${outcome} ×`
-        return
+        return active = 'Multiply'
+    } else if (active == 'Add'){
+        userInput.textContent = ""
+        outcome += Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ×`
+        userInput.textContent = `${outcome}`
+        active = 'Multiply'
+    } else if (active == 'Substract'){
+        userInput.textContent = ""
+        outcome -= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ×`
+        userInput.textContent = `${outcome}`
+        active = 'Multiply'
+    } else if (active == 'Divide'){
+        userInput.textContent = ""
+        outcome /= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ×`
+        userInput.textContent = `${outcome}`
+        active = 'Multiply'
     } else if (outcome > 0 || outcome < 0){
         let sum = outcome * userValue;
         outcome = sum
         calculation.textContent = `${outcome} ×`
         userInput.textContent = `${outcome}` 
         userValue = ""
+        active = 'Multiply'
     } else if (multiplyNum != null && userValue != null){
         let sum = multiplyNum * userValue;
         outcome = sum
         calculation.textContent = `${outcome} ×`
         userInput.textContent = `${outcome}` 
         userValue = ""
+        active = 'Multiply'
     } else {
         multiplyNum = Number(userValue);
+        outcome = multiplyNum
         userValue = ""
         calculation.textContent = `${multiplyNum} ×`
+        active = 'Multiply'
     }
 })
 
 btnDivide.addEventListener('click', function(){ 
-    active = 'Divide'
     if (userValue == "" ){
-        calculation.textContent = `${outcome} *`
-        return
+        calculation.textContent = `${outcome} ÷`
+        return active = 'Divide'
+    } else if (active == 'Add'){
+        userInput.textContent = ""
+        outcome += Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ÷`
+        userInput.textContent = `${outcome}`
+        active = 'Divide'
+    } else if (active == 'Multiply'){
+        userInput.textContent = ""
+        outcome *= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ÷`
+        userInput.textContent = `${outcome}`
+        active = 'Divide'
+    } else if (active == 'Substract'){
+        userInput.textContent = ""
+        outcome -= Number(userValue)
+        userValue = ""
+        calculation.textContent = `${outcome} ÷`
+        userInput.textContent = `${outcome}`
+        active = 'Divide'
     } else if (outcome > 0 || outcome < 0){
         let sum = outcome / userValue;
         outcome = sum
-        calculation.textContent = `${outcome} *`
+        calculation.textContent = `${outcome} ÷`
         userInput.textContent = `${outcome}` 
         userValue = ""
+        active = 'Divide'
     } else if (multiplyNum != null && userValue != null){
         let sum = multiplyNum / userValue;
         outcome = sum
-        calculation.textContent = `${outcome} *`
+        calculation.textContent = `${outcome} ÷`
         userInput.textContent = `${outcome}` 
         userValue = ""
+        active = 'Divide'
     } else {
         multiplyNum = Number(userValue);
+        outcome = multiplyNum
         userValue = ""
-        calculation.textContent = `${multiplyNum} *`
+        calculation.textContent = `${multiplyNum} ÷`
+        active = 'Divide'
     }
 })
 
