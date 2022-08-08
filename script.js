@@ -17,7 +17,7 @@
  let userValue = ""
 let num1
 let num2
-
+let previousActivity
 
  let active
  
@@ -38,6 +38,7 @@ numberButtons.forEach(button =>
 function collectData(e){// passing numbers to UserValue
     let btnText = e.target.textContent
     userValue += btnText
+    userInput.textContent = `${userValue}`
     console.log(userValue)
     
 }
@@ -47,18 +48,50 @@ operator.forEach(button =>
         capture:true
     }))
 
+
+btnEqual.addEventListener('click', equals, {
+    capture:true
+})
+
+function equals(){
+    if (num1 == null && num2 == null){
+        return
+    } else if (num1 != null && num2 == null){
+        num2 = Number(userValue)
+        userValue = ""
+        result()
+    } 
+    else if (outcome != null) {
+        num1 = Number(outcome)
+        num2 = Number(userValue)
+        userValue = ""
+        result()
+    } else if (outcome == null){
+        result()
+    }
+}
 // +   -   ×   ÷   =
 
 
 function operation(e){
     let btnText = e.target.textContent
     active = btnText
-    if (userValue == ""){
-        return calculation.textContent = "Numbers first"
-    } else if (outcome != null) {
-        num1 = outcome
+    calculation.textContent = `${userValue}${active}`
+    if (outcome != null && userValue != ""){
+        num1 = Number(outcome)
         num2 = Number(userValue)
         userValue = ""
+        result()
+    } else if (outcome != null && userValue == ""){
+        num1 = Number(outcome)
+        calculation.textContent = `${num1}${active}`
+    } else if (userValue == ""){
+        return calculation.textContent = "Numbers first"
+    } else if (outcome != null) {
+        num1 = Number(outcome)
+        num2 = Number(userValue)
+        userValue = ""
+        result()
     }
     else if (num1 == null){
         num1 = Number(userValue)
@@ -66,45 +99,59 @@ function operation(e){
     } else if (num1 != null && num2 == null){
         num2 = Number(userValue)
         userValue = ""
+        result()
     } else if (num1 != null && num2 != null){
-        num1= num2
+        num1 = Number(num2)
         num2 = Number(userValue)
         userValue = ""
+        result()
     }
 }
 
 function result(){
-    if (num1 != null && num2 != null ){
+    if (num1 != null && num2 != null){
         if (active == '+'){
-            outcome = add(num1, num2)
+            add(num1, num2)
         } else if (active == '-'){
-            outcome = substract(num1, num2)
+            substract(num1, num2)
         } else if (active == '×'){
-            outcome = multiply(num1, num2)
+            multiply(num1, num2)
         } else if (active == '÷'){
-            outcome = divide(num1, num2)
+            divide(num1, num2)
         }
-    }
+    } 
 }
 
 function add(num1, num2){
     outcome = num1 + num2
-    return;
+    previousActivity = '+'
+    calculation.textContent = `${outcome}${active}`
+    userInput.textContent = `${outcome}`
+    return console.log("Add " + outcome);
 }
 
 function substract(num1, num2){
     outcome = num1 - num2
-    return;
+    previousActivity = '-'
+    calculation.textContent = `${outcome}${active}`
+    userInput.textContent = `${outcome}`
+    return console.log("Substract " + outcome);
 }
 
 function multiply(num1, num2){
     outcome = num1 * num2
-    return;
+    previousActivity = '×'
+    calculation.textContent = `${outcome}${active}`
+    userInput.textContent = `${outcome}`
+    return console.log("Multiply " + outcome);
 }
 
 function divide(num1, num2){
     outcome = num1 / num2
-    return;
+    previousActivity = '÷'
+    calculation.textContent = `${outcome}${active}`
+    userInput.textContent = `${outcome}`
+    return console.log("Divide " + outcome);
 }
 
 
