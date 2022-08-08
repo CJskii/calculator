@@ -1,21 +1,11 @@
  const container = document.querySelector('.container')
  const display = document.querySelector('.display')
- const operator = document.querySelector('.active')
+ const operator = document.querySelectorAll('.operator')
  const buttons = document.querySelectorAll('.btn')
  const calculation = document.querySelector('.calculation')
  const userInput = document.querySelector('.user-input')
  const btnClear = document.querySelector('.btnClear')
  const btnDelete = document.querySelector('.btnDelete')
- const btn1 = document.querySelector('.btn1')
- const btn2 = document.querySelector('.btn2')
- const btn3 = document.querySelector('.btn3')
- const btn4 = document.querySelector('.btn4')
- const btn5 = document.querySelector('.btn5')
- const btn6 = document.querySelector('.btn6')
- const btn7 = document.querySelector('.btn7')
- const btn8 = document.querySelector('.btn8')
- const btn9 = document.querySelector('.btn9')
- const btn0 = document.querySelector('.btn0')
  const btnAdd = document.querySelector('.btnAdd')
  const btnSubstract = document.querySelector('.btnSubstract')
  const btnMultiply = document.querySelector('.btnMultiply')
@@ -25,15 +15,103 @@
  
 
  let userValue = ""
- let outcome = 0
+let num1
+let num2
+
+
  let active
+ 
+
+
+ let outcome
+
  let multiplyNum
+ let operatorVal
+
+//TAKES DATA
+
+numberButtons.forEach(button => 
+    button.addEventListener('click', collectData, {
+    capture:true
+}));
+
+function collectData(e){// passing numbers to UserValue
+    let btnText = e.target.textContent
+    userValue += btnText
+    console.log(userValue)
+    
+}
+
+operator.forEach(button => 
+    button.addEventListener('click', operation, {
+        capture:true
+    }))
+
+// +   -   ×   ÷   =
 
 
- buttons.forEach((button => button.addEventListener('click', function () { // listen to all buttons
-    //userInput.textContent += this.textContent
- })))
+function operation(e){
+    let btnText = e.target.textContent
+    active = btnText
+    if (userValue == ""){
+        return calculation.textContent = "Numbers first"
+    } else if (outcome != null) {
+        num1 = outcome
+        num2 = Number(userValue)
+        userValue = ""
+    }
+    else if (num1 == null){
+        num1 = Number(userValue)
+        userValue = ""
+    } else if (num1 != null && num2 == null){
+        num2 = Number(userValue)
+        userValue = ""
+    } else if (num1 != null && num2 != null){
+        num1= num2
+        num2 = Number(userValue)
+        userValue = ""
+    }
+}
 
+function result(){
+    if (num1 != null && num2 != null ){
+        if (active == '+'){
+            outcome = add(num1, num2)
+        } else if (active == '-'){
+            outcome = substract(num1, num2)
+        } else if (active == '×'){
+            outcome = multiply(num1, num2)
+        } else if (active == '÷'){
+            outcome = divide(num1, num2)
+        }
+    }
+}
+
+function add(num1, num2){
+    outcome = num1 + num2
+    return;
+}
+
+function substract(num1, num2){
+    outcome = num1 - num2
+    return;
+}
+
+function multiply(num1, num2){
+    outcome = num1 * num2
+    return;
+}
+
+function divide(num1, num2){
+    outcome = num1 / num2
+    return;
+}
+
+
+
+
+
+/*
  numberButtons.forEach((button => button.addEventListener('click', function() { // listen to number buttons
         userValue += this.textContent;
         userInput.textContent = `${userValue}` // add clicked number value to userValue variable
@@ -133,6 +211,8 @@ btnSubstract.addEventListener('click', function(){
 })
 
 // 12 + 7 - 5 * 3 = should yield 42
+
+
 
 //MULTIPLY
 btnMultiply.addEventListener('click', function(){ 
@@ -280,3 +360,4 @@ btnEqual.addEventListener('click', function(){
     }
 })
 
+*/
