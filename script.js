@@ -25,7 +25,6 @@
  
 
  let userValue = ""
- let userValue2 = ""
  let outcome = 0
  let active
  let multiplyNum
@@ -49,6 +48,7 @@
     userValue = ""
     active = ""
     outcome = 0;
+    multiplyNum = null
  })
 
  btnDelete.addEventListener('click', function(){
@@ -93,16 +93,40 @@ btnSubstract.addEventListener('click', function(){
 btnMultiply.addEventListener('click', function(){ 
     active = 'Multiply'
     if (userValue == "" ){
-        calculation.textContent = `${outcome} *`
+        calculation.textContent = `${outcome} ×`
         return
     } else if (outcome > 0 || outcome < 0){
         let sum = outcome * userValue;
+        outcome = sum
+        calculation.textContent = `${outcome} ×`
+        userInput.textContent = `${outcome}` 
+        userValue = ""
+    } else if (multiplyNum != null && userValue != null){
+        let sum = multiplyNum * userValue;
+        outcome = sum
+        calculation.textContent = `${outcome} ×`
+        userInput.textContent = `${outcome}` 
+        userValue = ""
+    } else {
+        multiplyNum = Number(userValue);
+        userValue = ""
+        calculation.textContent = `${multiplyNum} ×`
+    }
+})
+
+btnDivide.addEventListener('click', function(){ 
+    active = 'Divide'
+    if (userValue == "" ){
+        calculation.textContent = `${outcome} *`
+        return
+    } else if (outcome > 0 || outcome < 0){
+        let sum = outcome / userValue;
         outcome = sum
         calculation.textContent = `${outcome} *`
         userInput.textContent = `${outcome}` 
         userValue = ""
     } else if (multiplyNum != null && userValue != null){
-        let sum = multiplyNum * userValue;
+        let sum = multiplyNum / userValue;
         outcome = sum
         calculation.textContent = `${outcome} *`
         userInput.textContent = `${outcome}` 
@@ -135,14 +159,28 @@ btnEqual.addEventListener('click', function(){
         outcome = sum
         userValue = ""
         userInput.textContent = ""
-        calculation.textContent =`${sum} *`
+        calculation.textContent =`${sum} ×`
         userInput.textContent = `${outcome}`
     } else if (active == 'Multiply'){
         let sum = Number(multiplyNum) * Number(userValue)
         outcome = sum
         userValue = ""
         userInput.textContent = ""
-        calculation.textContent =`${sum} *`
+        calculation.textContent =`${sum} ×`
+        userInput.textContent = `${outcome}`
+    } else if (active == 'Divide' && outcome != 0){
+        let sum = Number(outcome) / Number(userValue)
+        outcome = sum
+        userValue = ""
+        userInput.textContent = ""
+        calculation.textContent =`${sum} ÷`
+        userInput.textContent = `${outcome}`
+    } else if (active == 'Divide'){
+        let sum = Number(multiplyNum) / Number(userValue)
+        outcome = sum
+        userValue = ""
+        userInput.textContent = ""
+        calculation.textContent =`${sum} ÷`
         userInput.textContent = `${outcome}`
     } else {
         return;
