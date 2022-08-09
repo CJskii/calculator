@@ -14,19 +14,13 @@
  const numberButtons = document.querySelectorAll('.number')
  
 
- let userValue = ""
-let num1
-let num2
-let previousActivity
+let userValue = "" // capture input from user
+let num1 // operand 1
+let num2 // operand 2
+let previousActivity // store previous operator
+let active // store current operator
+let outcome // store result
 
- let active
- 
-
-
- let outcome
-
- let multiplyNum
- let operatorVal
 
 //TAKES DATA
 
@@ -70,6 +64,7 @@ function equals(){
         result()
     }
 }
+
 // +   -   ×   ÷   =
 
 
@@ -141,8 +136,15 @@ function setActivity(){
     previousActivity = active
 }
 
+function roundNumber(outcome){
+    let num = outcome
+    outcome = Math.round(num * 100) / 100
+    return outcome
+}
+
 function add(num1, num2){
     outcome = num1 + num2
+    outcome = roundNumber(outcome)
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Add " + outcome);
@@ -150,6 +152,7 @@ function add(num1, num2){
 
 function substract(num1, num2){
     outcome = num1 - num2
+    outcome = roundNumber(outcome)
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Substract " + outcome);
@@ -157,6 +160,7 @@ function substract(num1, num2){
 
 function multiply(num1, num2){
     outcome = num1 * num2
+    outcome = roundNumber(outcome)
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Multiply " + outcome);
@@ -164,6 +168,7 @@ function multiply(num1, num2){
 
 function divide(num1, num2){
     outcome = num1 / num2
+    outcome = roundNumber(outcome)
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Divide " + outcome);
