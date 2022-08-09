@@ -82,9 +82,11 @@ function operation(e){
         num2 = Number(userValue)
         userValue = ""
         result()
+        setActivity()
     } else if (outcome != null && userValue == ""){
         num1 = Number(outcome)
         calculation.textContent = `${num1}${active}`
+        setActivity()
     } else if (userValue == ""){
         return calculation.textContent = "Numbers first"
     } else if (outcome != null) {
@@ -96,20 +98,23 @@ function operation(e){
     else if (num1 == null){
         num1 = Number(userValue)
         userValue = ""
+        setActivity()
     } else if (num1 != null && num2 == null){
         num2 = Number(userValue)
         userValue = ""
         result()
+        setActivity()
     } else if (num1 != null && num2 != null){
-        num1 = Number(num2)
+        num1 = Number(num2) 
         num2 = Number(userValue)
         userValue = ""
         result()
+        setActivity()
     }
 }
 
 function result(){
-    if (num1 != null && num2 != null){
+    if (num1 != null && num2 != null && previousActivity == null){
         if (active == '+'){
             add(num1, num2)
         } else if (active == '-'){
@@ -119,12 +124,25 @@ function result(){
         } else if (active == '÷'){
             divide(num1, num2)
         }
-    } 
+    } else if (previousActivity != null){
+        if (previousActivity == '+'){
+            add(num1, num2)
+        } else if (previousActivity == '-'){
+            substract(num1, num2)
+        } else if (previousActivity == '×'){
+            multiply(num1, num2)
+        } else if (previousActivity == '÷'){
+            divide(num1, num2)
+        }
+    }
+}
+
+function setActivity(){
+    previousActivity = active
 }
 
 function add(num1, num2){
     outcome = num1 + num2
-    previousActivity = '+'
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Add " + outcome);
@@ -132,7 +150,6 @@ function add(num1, num2){
 
 function substract(num1, num2){
     outcome = num1 - num2
-    previousActivity = '-'
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Substract " + outcome);
@@ -140,7 +157,6 @@ function substract(num1, num2){
 
 function multiply(num1, num2){
     outcome = num1 * num2
-    previousActivity = '×'
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Multiply " + outcome);
@@ -148,7 +164,6 @@ function multiply(num1, num2){
 
 function divide(num1, num2){
     outcome = num1 / num2
-    previousActivity = '÷'
     calculation.textContent = `${outcome}${active}`
     userInput.textContent = `${outcome}`
     return console.log("Divide " + outcome);
