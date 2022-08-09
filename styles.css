@@ -2,6 +2,10 @@
     font-family: 'Open';
     src: url(../calculator/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf);
 }
+@font-face {
+    font-family: 'Mouse';
+    src: url(../calculator/Mouse_Memoirs/MouseMemoirs-Regular.ttf);
+}
 
 *{
     margin: 0;
@@ -129,4 +133,35 @@
     background: linear-gradient(0deg, rgb(69, 21, 109) 50%, rgb(126, 24, 126) 100%);
     border: 1px solid rgb(65, 7, 65);
     transform: scale(1.01);
+}
+
+.top-text{
+    font-family: 'Mouse, sans-serif';
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    background: #9E4D70;
+    background: radial-gradient(ellipse farthest-corner at center center, #8f24aa 0%, #a432c0 50%, #1321e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.footer{
+    font-size: 10px;
+    font-family: 'Mouse, sans-serif';
+    background: #CFA80C;
+    background: linear-gradient(to right, #CFA80C 30%, #d86417 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a:hover{
+    background: #CFA80C;
+    background: linear-gradient(to right, #a16f03 50%, #f7fa64 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
