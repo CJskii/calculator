@@ -45,6 +45,7 @@ btnClear.addEventListener('click', clear)
 
 btnDot.addEventListener('click', floatingNumbers)
 
+btnDelete.addEventListener('click', deleteNumber) 
 
 function collectData(e){// passing numbers to UserValue
     let btnText = e.target.textContent
@@ -64,6 +65,12 @@ function clear(){
     calculation.textContent = ""
     userInput.textContent = ""
 };
+
+function deleteNumber(){
+    let text = userInput.textContent
+    userInput.textContent = text.slice(0, -1);
+    userValue = text.slice(0, -1);
+}
 
 function equals(){
     if (num1 == null && num2 == null){
