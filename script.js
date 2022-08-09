@@ -15,11 +15,11 @@
  
 
 let userValue = "" // capture input from user
-let num1 // operand 1
-let num2 // operand 2
-let previousActivity // store previous operator
-let active // store current operator
-let outcome // store result
+let num1 = null // operand 1
+let num2 = null // operand 2
+let previousActivity = null // store previous operator
+let active = null // store current operator
+let outcome = null // store result
 
 
 //TAKES DATA
@@ -46,6 +46,19 @@ operator.forEach(button =>
 btnEqual.addEventListener('click', equals, {
     capture:true
 })
+
+btnClear.addEventListener('click', clear)
+
+function clear(){
+    userValue = ""
+    num1 = null
+    num2 = null
+    previousActivity = null
+    active = null
+    outcome = null
+    calculation.textContent = ""
+    userInput.textContent = ""
+}
 
 function equals(){
     if (num1 == null && num2 == null){
