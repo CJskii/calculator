@@ -6,19 +6,16 @@
  const userInput = document.querySelector('.user-input')
  const btnClear = document.querySelector('.btnClear')
  const btnDelete = document.querySelector('.btnDelete')
- const btnAdd = document.querySelector('.btnAdd')
- const btnSubstract = document.querySelector('.btnSubstract')
- const btnMultiply = document.querySelector('.btnMultiply')
- const btnDivide = document.querySelector('.btnDivide')
  const btnEqual = document.querySelector('.btnEqual')
+ const btnDot = document.querySelector('.btnDot')
  const numberButtons = document.querySelectorAll('.number')
  
 
 let userValue = "" // capture input from user
 let num1 = null // operand 1
 let num2 = null // operand 2
-let previousActivity = null // store previous operator
-let active = null // store current operator
+let previousOperator = null // store previous operator
+let currentOperator = null // store current operator
 let outcome = null // store result
 
 const text = {
@@ -35,36 +32,38 @@ numberButtons.forEach(button =>
     capture:true
 }));
 
+operator.forEach(button => 
+    button.addEventListener('click', operation, {
+        capture:true
+}));
+
+btnEqual.addEventListener('click', equals, {
+    capture:true
+});
+
+btnClear.addEventListener('click', clear)
+
+btnDot.addEventListener('click', floatingNumbers)
+
+
 function collectData(e){// passing numbers to UserValue
     let btnText = e.target.textContent
     userValue += btnText
     userInput.textContent = `${userValue}`
     console.log(userValue)
     
-}
-
-operator.forEach(button => 
-    button.addEventListener('click', operation, {
-        capture:true
-    }))
-
-
-btnEqual.addEventListener('click', equals, {
-    capture:true
-})
-
-btnClear.addEventListener('click', clear)
+};
 
 function clear(){
     userValue = ""
     num1 = null
     num2 = null
-    previousActivity = null
-    active = null
+    previousOperator = null
+    currentOperator = null
     outcome = null
     calculation.textContent = ""
     userInput.textContent = ""
-}
+};
 
 function equals(){
     if (num1 == null && num2 == null){
@@ -82,15 +81,15 @@ function equals(){
     } else if (outcome == null){
         result()
     }
-}
+};
 
 // +   -   ×   ÷   =
 
 
 function operation(e){
     let btnText = e.target.textContent
-    active = btnText
-    calculation.textContent = `${userValue}${active}`
+    currentOperator = btnText
+    calculation.textContent = `${userValue}${currentOperator}`
     if (outcome != null && userValue != ""){
         num1 = Number(outcome)
         num2 = Number(userValue)
@@ -99,7 +98,7 @@ function operation(e){
         setActivity()
     } else if (outcome != null && userValue == ""){
         num1 = Number(outcome)
-        calculation.textContent = `${num1}${active}`
+        calculation.textContent = `${num1}${currentOperator}`
         setActivity()
     } else if (userValue == ""){
         return calculation.textContent = "Numbers first"
@@ -108,8 +107,7 @@ function operation(e){
         num2 = Number(userValue)
         userValue = ""
         result()
-    }
-    else if (num1 == null){
+    } else if (num1 == null){
         num1 = Number(userValue)
         userValue = ""
         setActivity()
@@ -125,62 +123,80 @@ function operation(e){
         result()
         setActivity()
     }
-}
+};
 
 function result(){
-    if (num1 != null && num2 != null && previousActivity == null){
-        if (active == '+'){
+    if (num1 != null && num2 != null && previousOperator == null){
+        if (currentOperator == '+'){
             add(num1, num2)
-        } else if (active == '-'){
+        } else if (currentOperator == '-'){
             substract(num1, num2)
-        } else if (active == '×'){
+        } else if (currentOperator == '×'){
             multiply(num1, num2)
-        } else if (active == '÷'){
+        } else if (currentOperator == '÷'){
             divide(num1, num2)
         }
-    } else if (previousActivity != null){
-        if (previousActivity == '+'){
+    } else if (previousOperator != null){
+        if (previousOperator == '+'){
             add(num1, num2)
-        } else if (previousActivity == '-'){
+        } else if (previousOperator == '-'){
             substract(num1, num2)
-        } else if (previousActivity == '×'){
+        } else if (previousOperator == '×'){
             multiply(num1, num2)
-        } else if (previousActivity == '÷'){
+        } else if (previousOperator == '÷'){
             divide(num1, num2)
         }
     }
-}
+};
 
 function setActivity(){
-    previousActivity = active
-}
+    previousOperator = currentOperator
+};
 
 function roundNumber(outcome){
     let num = outcome
     outcome = Math.round(num * 100) / 100
     return outcome
-}
+};
 
 function randomText() {
     let index = Math.floor((Math.random() * 3) + 1)
     return text[index]
+};
+
+function floatingNumbers(e){
+    let btnText = e.target.textContent
+    let position = userValue.indexOf('.') // -1 not there 
+    console.log(position)
+    if (position >= 0){
+        return;
+    } else if (position == -1 && userValue == ""){
+        userValue += 0
+        userValue += btnText
+        userInput.textContent = `${userValue}`
+    } 
+    else {
+        userValue += btnText
+        userInput.textContent = `${userValue}`
+        console.log(userValue)
+    }
 }
 
 function add(num1, num2){
     outcome = num1 + num2
     outcome = roundNumber(outcome)
-    calculation.textContent = `${outcome}${active}`
+    calculation.textContent = `${outcome}${currentOperator}`
     userInput.textContent = `${outcome}`
     return console.log("Add " + outcome);
-}
+};
 
 function substract(num1, num2){
     outcome = num1 - num2
     outcome = roundNumber(outcome)
-    calculation.textContent = `${outcome}${active}`
+    calculation.textContent = `${outcome}${currentOperator}`
     userInput.textContent = `${outcome}`
     return console.log("Substract " + outcome);
-}
+};
 
 function multiply(num1, num2){
     if (num2 === 0){
@@ -189,11 +205,11 @@ function multiply(num1, num2){
     } else {
         outcome = num1 * num2
         outcome = roundNumber(outcome)
-        calculation.textContent = `${outcome}${active}`
+        calculation.textContent = `${outcome}${currentOperator}`
         userInput.textContent = `${outcome}`
         return console.log("Multiply " + outcome);
     }    
-}
+};
 
 function divide(num1, num2){
     if (num2 === 0){
@@ -202,12 +218,12 @@ function divide(num1, num2){
     } else {
         outcome = num1 / num2
         outcome = roundNumber(outcome)
-        calculation.textContent = `${outcome}${active}`
+        calculation.textContent = `${outcome}${currentOperator}`
         userInput.textContent = `${outcome}`
         return console.log("Divide " + outcome);
     }
     
-}
+};
 
 
 
