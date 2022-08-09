@@ -53,7 +53,7 @@
     font-size: 38px;
     font-family: 'Open';
     background: rgb(47, 143, 143);
-    background: linear-gradient(0deg, rgb(105, 138, 165) 25%, rgb(118, 145, 129) 100%);
+    background: linear-gradient(0deg, rgba(105, 138, 165, 0.5) 25%, rgba(118, 145, 129, 0.5) 100%);
 }
 
 .undo-wrapper{
@@ -88,7 +88,7 @@
     color: rgb(245, 245, 245);
     font-size: 24px;
     background: rgb(47,51,51);
-    background: linear-gradient(0deg, rgb(63, 71, 71) 0%, rgb(75, 90, 82) 100%);
+    background: linear-gradient(0deg, rgba(63, 71, 71, 0.2) 0%, rgba(75, 90, 82, 0.4) 100%);
     border: 1px solid rgb(25, 31, 31);
     transition: all .15s ease-in-out;
 
@@ -96,14 +96,14 @@
 
 .btn:hover{
     background: rgb(47,51,51);
-    background: linear-gradient(0deg, rgba(47,51,51,1) 25%,rgb(58, 70, 70) 50%, rgb(79, 95, 86) 100%);
+    background: linear-gradient(0deg, rgba(47,51,51,1) 25%,rgba(58, 70, 70, 0.6) 50%, rgb(79, 95, 86) 100%);
     border: 1px solid rgb(121, 89, 3);
     transform: scale(1.02);
 }
 
 .btnClear, .btnDelete{
     width: 10.6rem;
-    border-radius: 5px;
+    border-radius: 10px;
     color: rgb(245, 245, 245);
     font-size: 20px;;
     height: 40px;
@@ -112,26 +112,26 @@
 
 .btnClear{
     background: rgb(255, 0, 0);
-    background: linear-gradient(0deg, rgb(99, 16, 16) 50%, rgb(155, 25, 25) 100%);
-    border: 1px solid rgb(51, 3, 3);
+    background: linear-gradient(0deg, rgba(99, 16, 16, 0.4) 50%, rgba(155, 25, 25, 0.4) 100%);
+    border: 1px solid rgba(51, 3, 3, 0.6);
 }
 
 .btnClear:hover{
     background: rgb(47,51,51);
-    background: linear-gradient(0deg, rgb(80, 14, 14) 50%, rgb(148, 25, 25) 100%);
+    background: linear-gradient(0deg, rgba(80, 14, 14, 0.8) 50%, rgba(148, 25, 25, 0.7) 100%);
     transform: scale(1.01);
 }
 
 .btnDelete{
     background: rgb(63, 4, 78);
-    background: linear-gradient(0deg, rgb(78, 15, 129) 50%, rgb(129, 17, 129) 100%);
-    border: 1px solid rgb(65, 7, 65);
+    background: linear-gradient(0deg, rgba(78, 15, 129, 0.4) 50%, rgba(129, 17, 129, 0.4) 100%);
+    border: 1px solid rgba(63, 4, 78, 0.4);
 }
 
 .btnDelete:hover{
     background: rgb(63, 4, 78);
-    background: linear-gradient(0deg, rgb(69, 21, 109) 50%, rgb(126, 24, 126) 100%);
-    border: 1px solid rgb(65, 7, 65);
+    background: linear-gradient(0deg, rgba(69, 21, 109, 0.8) 50%, rgba(126, 24, 126, 0.7) 100%);
+    border: 1px solid rgba(63, 4, 78, 0.6);
     transform: scale(1.01);
 }
 
@@ -165,3 +165,17 @@ a:hover{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.operator, .btnEqual, .btnDot{
+    background: #CFA80C;
+    background: linear-gradient(to right, #573c01 50%, #f7fa64 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.operator:hover, .btnEqual:hover, .btnDot:hover{
+    background: #CFA80C;
+    background: linear-gradient(to right, #aa7d1d 50%, #f7fa64 100%);
+    -webkit-background-clip: text;
+}
+
