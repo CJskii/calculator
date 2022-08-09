@@ -21,6 +21,12 @@ let previousActivity = null // store previous operator
 let active = null // store current operator
 let outcome = null // store result
 
+const text = {
+    1: "Nah... I can't do that...",
+    2: "That doesn't do anything...",
+    3: "Unlogical situation...",
+}
+
 
 //TAKES DATA
 
@@ -155,6 +161,11 @@ function roundNumber(outcome){
     return outcome
 }
 
+function randomText() {
+    let index = Math.floor((Math.random() * 3) + 1)
+    return text[index]
+}
+
 function add(num1, num2){
     outcome = num1 + num2
     outcome = roundNumber(outcome)
@@ -172,19 +183,30 @@ function substract(num1, num2){
 }
 
 function multiply(num1, num2){
-    outcome = num1 * num2
-    outcome = roundNumber(outcome)
-    calculation.textContent = `${outcome}${active}`
-    userInput.textContent = `${outcome}`
-    return console.log("Multiply " + outcome);
+    if (num2 === 0){
+        let text = randomText()
+        return calculation.textContent = `${text}`
+    } else {
+        outcome = num1 * num2
+        outcome = roundNumber(outcome)
+        calculation.textContent = `${outcome}${active}`
+        userInput.textContent = `${outcome}`
+        return console.log("Multiply " + outcome);
+    }    
 }
 
 function divide(num1, num2){
-    outcome = num1 / num2
-    outcome = roundNumber(outcome)
-    calculation.textContent = `${outcome}${active}`
-    userInput.textContent = `${outcome}`
-    return console.log("Divide " + outcome);
+    if (num2 === 0){
+        let text = randomText()
+        return calculation.textContent = `${text}`
+    } else {
+        outcome = num1 / num2
+        outcome = roundNumber(outcome)
+        calculation.textContent = `${outcome}${active}`
+        userInput.textContent = `${outcome}`
+        return console.log("Divide " + outcome);
+    }
+    
 }
 
 
