@@ -57,19 +57,32 @@ function keyboardInputHandler(e){
         userInput.textContent = `${userValue}`
     } else if (key == '+' || key == '-' || key == '*' || key == '/') {
         setCurrentOperator(key)
-    } else if (key == '='){
+    } else if (key == '=' || key == 'Enter'){
         equals()
     } else if (key == '.'){
-        
+        //checkfor floating number in string
+        let position = userValue.indexOf('.')
+        return keyboardFloating(position)
+    } 
+}
+
+function keyboardFloating(position){
+    let btnText = '.'
+    if (position >= 0){
+        return;
+    } else if (position == -1 && userValue == ""){
+        userValue += 0
+        userValue += btnText
+        userInput.textContent = `${userValue}`
+    } 
+    else {
+        userValue += btnText
+        userInput.textContent = `${userValue}`
+        console.log(userValue)
     }
 }
 
 // +   -   ×   ÷   =
-
-function kbSetActive(key){
-    
-}
-
 
 function setCurrentOperator(e){
     if (key == '/'){
@@ -210,6 +223,14 @@ function randomText() {
     let index = Math.floor((Math.random() * 3) + 1)
     return text[index]
 };
+
+function checkPosition(){
+    if (key == '.'){
+
+    } else {
+        
+    }
+}
 
 function floatingNumbers(e){
     let btnText = e.target.textContent
