@@ -129,6 +129,21 @@ function deleteNumber(){
     userValue = text.slice(0, -1);
 }
 
+function setPreviousOperator(){
+    previousOperator = currentOperator
+};
+
+function roundNumber(outcome){
+    let num = outcome
+    outcome = Math.round(num * 10000000000) / 10000000000 // 10 decimals
+    return outcome
+};
+
+function randomText() {
+    let index = Math.floor((Math.random() * 3) + 1)
+    return text[index]
+};
+
 function equals(){
     if (num1 == null && num2 == null){
         return
@@ -206,29 +221,6 @@ function result(){
         }
     }
 };
-
-function setPreviousOperator(){
-    previousOperator = currentOperator
-};
-
-function roundNumber(outcome){
-    let num = outcome
-    outcome = Math.round(num * 100) / 100
-    return outcome
-};
-
-function randomText() {
-    let index = Math.floor((Math.random() * 3) + 1)
-    return text[index]
-};
-
-function checkPosition(){
-    if (key == '.'){
-
-    } else {
-        
-    }
-}
 
 function floatingNumbers(e){
     let btnText = e.target.textContent
