@@ -17,6 +17,7 @@ let num2 = null // operand 2
 let previousOperator = null // store previous operator
 let currentOperator = null // store current operator
 let outcome = null // store result
+let key = null // store keyboard key
 
 const text = {
     1: "Nah... I can't do that...",
@@ -33,7 +34,7 @@ numberButtons.forEach(button =>
 }));
 
 operator.forEach(button => 
-    button.addEventListener('click', operation, {
+    button.addEventListener('click', setCurrentOperator, {
         capture:true
 }));
 
@@ -46,6 +47,46 @@ btnClear.addEventListener('click', clear)
 btnDot.addEventListener('click', floatingNumbers)
 
 btnDelete.addEventListener('click', deleteNumber) 
+window.addEventListener('keydown', keyboardInputHandler)
+
+function keyboardInputHandler(e){
+    key = e.key
+    console.log(key)
+    if (key >= 0 && key <= 9){
+        userValue += key;
+        userInput.textContent = `${userValue}`
+    } else if (key == '+' || key == '-' || key == '*' || key == '/') {
+        setCurrentOperator(key)
+    } else if (key == '='){
+        equals()
+    } else if (key == '.'){
+        
+    }
+}
+
+// +   -   ×   ÷   =
+
+function kbSetActive(key){
+    
+}
+
+
+function setCurrentOperator(e){
+    if (key == '/'){
+        currentOperator = '÷'
+    } else if (key == '*'){
+        currentOperator = '×'
+    } else if (key == '+'){
+        currentOperator = '+'
+    } else if (key == '-'){
+        currentOperator = '-'
+    } else {
+        let btnText = e.target.textContent
+        currentOperator = btnText
+        
+    } calculation.textContent = `${userValue}${currentOperator}` 
+    operation()
+}
 
 function collectData(e){// passing numbers to UserValue
     let btnText = e.target.textContent
@@ -93,20 +134,19 @@ function equals(){
 // +   -   ×   ÷   =
 
 
+
+
 function operation(e){
-    let btnText = e.target.textContent
-    currentOperator = btnText
-    calculation.textContent = `${userValue}${currentOperator}`
     if (outcome != null && userValue != ""){
         num1 = Number(outcome)
         num2 = Number(userValue)
         userValue = ""
         result()
-        setActivity()
+        setPreviousOperator()
     } else if (outcome != null && userValue == ""){
         num1 = Number(outcome)
         calculation.textContent = `${num1}${currentOperator}`
-        setActivity()
+        setPreviousOperator()
     } else if (userValue == ""){
         return calculation.textContent = "Numbers first"
     } else if (outcome != null) {
@@ -117,18 +157,18 @@ function operation(e){
     } else if (num1 == null){
         num1 = Number(userValue)
         userValue = ""
-        setActivity()
+        setPreviousOperator()
     } else if (num1 != null && num2 == null){
         num2 = Number(userValue)
         userValue = ""
         result()
-        setActivity()
+        setPreviousOperator()
     } else if (num1 != null && num2 != null){
         num1 = Number(num2) 
         num2 = Number(userValue)
         userValue = ""
         result()
-        setActivity()
+        setPreviousOperator()
     }
 };
 
@@ -156,7 +196,7 @@ function result(){
     }
 };
 
-function setActivity(){
+function setPreviousOperator(){
     previousOperator = currentOperator
 };
 
