@@ -1,5 +1,3 @@
- const container = document.querySelector('.container')
- const display = document.querySelector('.display')
  const operator = document.querySelectorAll('.operator')
  const buttons = document.querySelectorAll('.btn')
  const calculation = document.querySelector('.calculation')
@@ -10,7 +8,6 @@
  const btnDot = document.querySelector('.btnDot')
  const numberButtons = document.querySelectorAll('.number')
  
-
 let userValue = "" // capture input from user
 let num1 = null // operand 1
 let num2 = null // operand 2
@@ -19,7 +16,7 @@ let currentOperator = null // store current operator
 let outcome = null // store result
 let key = null // store keyboard key
 
-const text = {
+const text = { // random text strings
     1: "Nah... I can't do that...",
     2: "That doesn't do anything...",
     3: "Unlogical situation...",
@@ -29,30 +26,16 @@ const text = {
 
 //TAKES DATA
 
-numberButtons.forEach(button => 
-    button.addEventListener('click', collectData, {
-    capture:true
-}));
+numberButtons.forEach(button => button.addEventListener('click', collectData));
+operator.forEach(button => button.addEventListener('click', setCurrentOperator));
+btnEqual.addEventListener('click', equals);
+btnClear.addEventListener('click', clear);
+btnDot.addEventListener('click', floatingNumbers);
+btnDelete.addEventListener('click', deleteNumber);
+window.addEventListener('keydown', keyboardInputHandler);
 
-operator.forEach(button => 
-    button.addEventListener('click', setCurrentOperator, {
-        capture:true
-}));
-
-btnEqual.addEventListener('click', equals, {
-    capture:true
-});
-
-btnClear.addEventListener('click', clear)
-
-btnDot.addEventListener('click', floatingNumbers)
-
-btnDelete.addEventListener('click', deleteNumber) 
-window.addEventListener('keydown', keyboardInputHandler)
-
-function keyboardInputHandler(e){
+function keyboardInputHandler(e){ // handle input from keyboard
     key = e.key
-    console.log(key)
     if (key >= 0 && key <= 9){
         userValue += key;
         userInput.textContent = `${userValue}`
@@ -69,9 +52,9 @@ function keyboardInputHandler(e){
     } else if (key == 'c' || key == 'Escape'){
         clear()
     } 
-}
+};
 
-function keyboardFloating(position){
+function keyboardFloating(position){ // handle floating points from keyboard
     let btnText = '.'
     if (position >= 0){
         return;
@@ -85,9 +68,9 @@ function keyboardFloating(position){
         userInput.textContent = `${userValue}`
         console.log(userValue)
     }
-}
+};
 
-function setCurrentOperator(e){
+function setCurrentOperator(e){ // sets currentOperator value
     if (key == '/'){
         currentOperator = '÷'
     } else if (key == '*'){
@@ -102,7 +85,7 @@ function setCurrentOperator(e){
         
     } calculation.textContent = `${userValue}${currentOperator}` 
     operation()
-}
+};
 
 function collectData(e){ // passing numbers to UserValue
     let btnText = e.target.textContent
@@ -112,7 +95,7 @@ function collectData(e){ // passing numbers to UserValue
     
 };
 
-function clear(){
+function clear(){ // wipe all variables
     userValue = ""
     num1 = null
     num2 = null
@@ -123,19 +106,19 @@ function clear(){
     userInput.textContent = ""
 };
 
-function deleteNumber(){
+function deleteNumber(){ // delete last value from string
     let text = userInput.textContent
     userInput.textContent = text.slice(0, -1);
     userValue = text.slice(0, -1);
 }
 
-function setPreviousOperator(){
+function setPreviousOperator(){ // setting previous operator
     previousOperator = currentOperator
 };
 
 function roundNumber(outcome){
     let num = outcome
-    outcome = Math.round(num * 10000000000) / 10000000000 // 10 decimals
+    outcome = Math.round(num * 1000000) / 1000000 // 6 decimals
     return outcome
 };
 
@@ -144,7 +127,7 @@ function randomText() {
     return text[index]
 };
 
-function equals(){
+function equals(){ // press equal logic
     if (num1 == null && num2 == null){
         return
     } else if (num1 != null && num2 == null){
@@ -162,7 +145,7 @@ function equals(){
     }
 };
 
-function operation(e){
+function operation(e){ // operator logic
     if (outcome != null && userValue != ""){
         num1 = Number(outcome)
         num2 = Number(userValue)
@@ -198,7 +181,7 @@ function operation(e){
     }
 };
 
-function result(){
+function result(){ // getResult logic
     if (num1 != null && num2 != null && previousOperator == null){
         if (currentOperator == '+'){
             add(num1, num2)
@@ -222,7 +205,7 @@ function result(){
     }
 };
 
-function floatingNumbers(e){
+function floatingNumbers(e){ // floating numbers logic for 'click'
     let btnText = e.target.textContent
     let position = userValue.indexOf('.') // -1 not there 
     console.log(position)

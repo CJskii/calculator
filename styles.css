@@ -1,8 +1,4 @@
 @font-face {
-    font-family: 'Open';
-    src: url(../calculator/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf);
-}
-@font-face {
     font-family: 'Mouse';
     src: url(../calculator/Mouse_Memoirs/MouseMemoirs-Regular.ttf);
 }
@@ -51,10 +47,11 @@
     padding: 10px;
     border-radius: 10px;
     font-size: 38px;
-    font-family: 'Open';
     background: rgb(47, 143, 143);
     background: linear-gradient(0deg, rgba(105, 138, 165, 0.5) 25%, rgba(118, 145, 129, 0.5) 100%);
+    overflow: hidden;
 }
+
 
 .undo-wrapper{
     width: 100%;
